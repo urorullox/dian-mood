@@ -3,146 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Are You Feeling?</title>
+    <title>Diann's Mood Tracker</title>
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: 'Cursive', Arial, sans-serif;
             background-color: #ffe6f0;
-            text-align: center;
-            padding: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            z-index: 1;
+            position: relative;
         }
 
         h1 {
             color: #ff69b4;
-            font-size: 36px;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .slider-container {
-            margin: 20px auto;
-            width: 80%;
-            text-align: left;
-            background-color: #fff;
-            padding: 20px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .slider-container h2 {
             color: #ff69b4;
-            font-size: 22px;
+            font-size: 18px;
             margin-bottom: 10px;
         }
 
-        .slider-container input[type="range"] {
+        input[type="range"] {
             width: 100%;
-            margin: 10px 0;
             appearance: none;
-            background-color: #ffe6f0;
-            border-radius: 8px;
+            background: linear-gradient(to right, #ff69b4, #ff1493);
+            border-radius: 10px;
+            outline: none;
+            height: 6px;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             appearance: none;
-            height: 20px;
             width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background-color: #ff69b4;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .slider-value {
-            font-size: 18px;
+            font-size: 16px;
             color: #ff69b4;
+            font-weight: bold;
         }
 
         button {
             background-color: #ff69b4;
             color: white;
-            font-size: 18px;
-            padding: 10px 20px;
             border: none;
-            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 25px;
             cursor: pointer;
+            transition: all 0.3s ease;
             margin-top: 20px;
         }
 
         button:hover {
-            background-color: #ff85c2;
+            background-color: #ff1493;
+        }
+
+        .mood-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff69b4;
+            font-weight: bold;
+            text-align: center;
+            min-height: 50px;
         }
 
         .heart-icon {
-            color: #ff69b4;
-            margin-left: 10px;
+            font-size: 20px;
+            vertical-align: middle;
         }
+
+        /* Animated background */
+        .floating-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-object {
+            position: absolute;
+            animation: float 10s infinite ease-in-out;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .heart {
+            background-image: url('https://img.icons8.com/color/48/000000/like--v1.png');
+            width: 50px;
+            height: 50px;
+        }
+
+        .flower {
+            background-image: url('butterfly.png');
+            width: 50px;
+            height: 50px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>How Are You Feeling Today?</h1>
+    <div class="floating-animation">
+        <!-- Floating hearts and flowers -->
+        <div class="floating-object heart" style="left: 10%; top: 5%; animation-duration: 8s;"></div>
+        <div class="floating-object flower" style="left: 30%; top: 15%; animation-duration: 12s;"></div>
+        <div class="floating-object heart" style="left: 50%; top: 10%; animation-duration: 10s;"></div>
+        <div class="floating-object flower" style="left: 70%; top: 20%; animation-duration: 14s;"></div>
+        <div class="floating-object heart" style="left: 90%; top: 25%; animation-duration: 9s;"></div>
     
-    <form action="https://formspree.io/f/https://formspree.io/f/xjkbndlv" method="POST" id="moodForm">
+        <!-- Animated tulips spread all over the screen -->
+        <div class="tulip" style="left: 5%;"></div>
+        <div class="tulip" style="left: 25%;"></div>
+        <div class="tulip" style="left: 45%;"></div>
+        <div class="tulip" style="left: 65%;"></div>
+        <div class="tulip" style="left: 85%;"></div>
+    </div>
+    
+    <style>
+        /* Basic page setup optimized for mobile devices */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Cursive', Arial, sans-serif;
+            background-color: #ffe6f0;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        /* Ensure the background covers mobile aspect ratios (like 20:9 or 21:9) */
+        @media (max-aspect-ratio: 21/9) {
+            body, html {
+                background-size: cover;
+            }
+        }
+    
+        /* Floating objects (hearts and flowers) */
+        .floating-object {
+            position: absolute;
+            animation: float 10s infinite ease-in-out;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 5%;  /* Responsive size */
+            height: 5%;
+        }
+    
+        .heart {
+            background-image: url('https://img.icons8.com/color/48/000000/like--v1.png');
+        }
+    
+        .flower {
+            background-image: url('butterfly.png');
+        }
+    
+        /* Floating animation for hearts and flowers (cover the screen) */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+    
+        /* Tulip styles with a larger spread across the screen */
+        .tulip {
+            background-image: url('tulip.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 6%;  /* Slightly larger size for tulips */
+            height: 12%;
+            position: absolute;
+            bottom: 0;
+            z-index: 10;
+            animation: sway 5s infinite ease-in-out;
+        }
+    
+        /* Swaying animation for tulips, keeping it responsive */
+        @keyframes sway {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+    
+        /* Ensuring animations are responsive on smaller screens */
+        @media (max-width: 768px) {
+            .floating-object {
+                width: 8%;  /* Adjust size for mobile */
+                height: 8%;
+            }
+            .tulip {
+                width: 8%;  /* Adjust size for mobile */
+                height: 14%;
+            }
+        }
+    </style>    
+    
+    <div class="container">
+        <h1>How was your day, Diann? 💖</h1>
+        
         <div class="slider-container">
             <h2>Happiness <span class="heart-icon">❤️</span></h2>
-            <input type="range" min="0" max="10" value="5" id="happinessSlider" name="happiness" oninput="updateValue('happiness')">
-            <p>Your happiness level: <span id="happinessValue" class="slider-value">5</span></p>
-        </div>
-
-        <div class="slider-container">
-            <h2>Sadness <span class="heart-icon">💔</span></h2>
-            <input type="range" min="0" max="10" value="5" id="sadnessSlider" name="sadness" oninput="updateValue('sadness')">
-            <p>Your sadness level: <span id="sadnessValue" class="slider-value">5</span></p>
-        </div>
-
-        <div class="slider-container">
-            <h2>Tiredness <span class="heart-icon">😴</span></h2>
-            <input type="range" min="0" max="10" value="5" id="tirednessSlider" name="tiredness" oninput="updateValue('tiredness')">
-            <p>Your tiredness level: <span id="tirednessValue" class="slider-value">5</span></p>
-        </div>
-
-        <div class="slider-container">
-            <h2>Overall Mood <span class="heart-icon">💕</span></h2>
-            <input type="range" min="0" max="10" value="5" id="overallMoodSlider" name="overall_mood" oninput="updateValue('overall_mood')">
-            <p>Your overall mood: <span id="overallMoodValue" class="slider-value">5</span></p>
+            <input type="range" id="happinessSlider" min="0" max="10" value="5">
+            <span id="happinessValue" class="slider-value">5</span>
         </div>
         
-        <button type="submit">Send Mood</button>
-    </form>
+        <div class="slider-container">
+            <h2>Sadness <span class="heart-icon">💔</span></h2>
+            <input type="range" id="sadnessSlider" min="0" max="10" value="5">
+            <span id="sadnessValue" class="slider-value">5</span>
+        </div>
+        
+        <div class="slider-container">
+            <h2>Tiredness <span class="heart-icon">😴</span></h2>
+            <input type="range" id="tirednessSlider" min="0" max="10" value="5">
+            <span id="tirednessValue" class="slider-value">5</span>
+        </div>
+        
+        <div class="slider-container">
+            <h2>Overall Mood <span class="heart-icon">💕</span></h2>
+            <input type="range" id="overallMoodSlider" min="0" max="10" value="5">
+            <span id="overallMoodValue" class="slider-value">5</span>
+        </div>
+        
+        <button onclick="sendMood()">Send Mood</button>
+        
+        <div id="moodMessage" class="mood-message"></div>
+    </div>
+
+    <!-- Add interactive sound elements -->
+    <audio id="backgroundMusic" loop>
+        <source src="love..mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sliderSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568.wav"></audio>
+    <audio id="happySound" src="https://assets.mixkit.co/active_storage/sfx/1430/1430.wav"></audio>
 
     <script>
-        function updateValue(sliderName) {
-            const slider = document.getElementById(sliderName + 'Slider');
-            const output = document.getElementById(sliderName + 'Value');
-            output.innerHTML = slider.value;
-        }
+        const sliders = document.querySelectorAll('input[type="range"]');
+        const moodMessage = document.getElementById('moodMessage');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const sliderSound = document.getElementById('sliderSound');
+        const happySound = document.getElementById('happySound');
 
-        document.getElementById('moodForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let form = this;
+        // Start background music when the user interacts
+        document.body.addEventListener('click', () => {
+            backgroundMusic.play();
+        }, { once: true });
 
-            // Simulate sending
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: {
-                    'Accept': 'application/json'
+        sliders.forEach(slider => {
+            slider.addEventListener('input', function() {
+                const value = this.value;
+                const valueElement = document.getElementById(this.id.replace('Slider', 'Value'));
+                valueElement.textContent = value;
+                
+                // Play slider sound on every interaction
+                sliderSound.currentTime = 0;
+                sliderSound.play();
+
+                // Play happy sound if value is high (above 5)
+                if (value > 5) {
+                    happySound.currentTime = 0;
+                    happySound.play();
                 }
-            }).then(function(response) {
-                if (response.ok) {
-                    alert('Your mood has been sent successfully!');
-                    form.reset();
-                    resetSliders();
-                } else {
-                    alert('Something went wrong. Please try again.');
+
+                // Optional: style the value on higher moods
+                if (value > 5) {
+                    valueElement.style.color = '#ff1493';
+                    valueElement.style.fontSize = '20px';
+                    valueElement.style.transition = 'all 0.3s ease';
+                    setTimeout(() => {
+                        valueElement.style.color = '#ff69b4';
+                        valueElement.style.fontSize = '16px';
+                    }, 300);
                 }
-            }).catch(function(error) {
-                alert('An error occurred. Please try again.');
             });
         });
 
-        function resetSliders() {
-            ['happiness', 'sadness', 'tiredness', 'overall_mood'].forEach(sliderName => {
-                document.getElementById(sliderName + 'Slider').value = 5;
-                document.getElementById(sliderName + 'Value').innerHTML = 5;
-            });
+        function sendMood() {
+            const happiness = parseInt(document.getElementById('happinessSlider').value);
+            const sadness = parseInt(document.getElementById('sadnessSlider').value);
+            const tiredness = parseInt(document.getElementById('tirednessSlider').value);
+            const overallMood = parseInt(document.getElementById('overallMoodSlider').value);
+
+            let message = '';
+
+            if (overallMood >= 8) {
+                message = "Diann, you're having an amazing day! Keep shining! ✨🌈";
+            } else if (overallMood >= 6) {
+                message = "Nice mood, Diann! You're doing great today! 💖🌟";
+            } else if (overallMood >= 4) {
+                message = "Your mood is balanced, Diann. Take a moment to appreciate the little things! 🌸🍃";
+            } else if (overallMood >= 2) {
+                message = "Sending you virtual hugs, Diann. Things will get better! 🤗💕";
+            } else {
+                message = "Remember, Diann, you're loved and valued! Reach out if you need support. 💖🌺";
+            }
+
+            if (tiredness > 7) {
+                message += " Don't forget to rest and recharge, Diann! 😴🐱";
+            }
+
+            if (happiness < sadness) {
+                message += " Let's focus on the little joys in life, Diann! 🐱😊";
+            }
+
+            moodMessage.textContent = message;
+            moodMessage.style.opacity = 0;
+            setTimeout(() => {
+                moodMessage.style.transition = 'opacity 1s ease-in-out';
+                moodMessage.style.opacity = 1;
+            }, 100);
         }
     </script>
 
