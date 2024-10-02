@@ -3,49 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Slider</title>
+    <title>How Are You Feeling?</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Cursive', Arial, sans-serif;
+            background-color: #ffe6f0;
             text-align: center;
-            margin: 50px;
+            padding: 50px;
         }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 36px;
+        }
+
         .slider-container {
-            margin: 20px 0;
+            margin: 20px auto;
+            width: 80%;
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        .slider-container h2 {
+            color: #ff69b4;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .slider-container input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            appearance: none;
+            background-color: #ffe6f0;
+            border-radius: 8px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: #ff69b4;
+        }
+
         .slider-value {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 18px;
+            color: #ff69b4;
+        }
+
+        button {
+            background-color: #ff69b4;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #ff85c2;
+        }
+
+        .heart-icon {
+            color: #ff69b4;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>How are you feeling today?</h1>
+    <h1>How Are You Feeling Today?</h1>
     
     <form action="https://formspree.io/f/https://formspree.io/f/xjkbndlv" method="POST" id="moodForm">
         <div class="slider-container">
-            <input type="range" min="0" max="10" value="5" id="moodSlider" name="mood" oninput="updateValue()">
-            <p>Your mood level: <span id="sliderValue" class="slider-value">5</span></p>
+            <h2>Happiness <span class="heart-icon">❤️</span></h2>
+            <input type="range" min="0" max="10" value="5" id="happinessSlider" name="happiness" oninput="updateValue('happiness')">
+            <p>Your happiness level: <span id="happinessValue" class="slider-value">5</span></p>
+        </div>
+
+        <div class="slider-container">
+            <h2>Sadness <span class="heart-icon">💔</span></h2>
+            <input type="range" min="0" max="10" value="5" id="sadnessSlider" name="sadness" oninput="updateValue('sadness')">
+            <p>Your sadness level: <span id="sadnessValue" class="slider-value">5</span></p>
+        </div>
+
+        <div class="slider-container">
+            <h2>Tiredness <span class="heart-icon">😴</span></h2>
+            <input type="range" min="0" max="10" value="5" id="tirednessSlider" name="tiredness" oninput="updateValue('tiredness')">
+            <p>Your tiredness level: <span id="tirednessValue" class="slider-value">5</span></p>
+        </div>
+
+        <div class="slider-container">
+            <h2>Overall Mood <span class="heart-icon">💕</span></h2>
+            <input type="range" min="0" max="10" value="5" id="overallMoodSlider" name="overall_mood" oninput="updateValue('overall_mood')">
+            <p>Your overall mood: <span id="overallMoodValue" class="slider-value">5</span></p>
         </div>
         
-        <!-- Hidden input for email notification -->
-        <input type="hidden" name="_subject" value="Mood Update!">
-        <input type="hidden" name="_replyto" value="orullox.08.x@gmail.com">
-
         <button type="submit">Send Mood</button>
     </form>
 
     <script>
-        function updateValue() {
-            // Update the slider value as it changes
-            let slider = document.getElementById("moodSlider");
-            let output = document.getElementById("sliderValue");
+        function updateValue(sliderName) {
+            const slider = document.getElementById(sliderName + 'Slider');
+            const output = document.getElementById(sliderName + 'Value');
             output.innerHTML = slider.value;
         }
 
         document.getElementById('moodForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form from submitting the regular way
+            e.preventDefault();
             let form = this;
 
             // Simulate sending
@@ -57,9 +127,9 @@
                 }
             }).then(function(response) {
                 if (response.ok) {
-                    alert('Mood has been sent successfully!');
+                    alert('Your mood has been sent successfully!');
                     form.reset();
-                    document.getElementById('sliderValue').innerHTML = '5'; // Reset slider display
+                    resetSliders();
                 } else {
                     alert('Something went wrong. Please try again.');
                 }
@@ -67,6 +137,13 @@
                 alert('An error occurred. Please try again.');
             });
         });
+
+        function resetSliders() {
+            ['happiness', 'sadness', 'tiredness', 'overall_mood'].forEach(sliderName => {
+                document.getElementById(sliderName + 'Slider').value = 5;
+                document.getElementById(sliderName + 'Value').innerHTML = 5;
+            });
+        }
     </script>
 
 </body>
