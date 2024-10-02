@@ -6,18 +6,13 @@
     <title>Diann's Mood Tracker</title>
     <style>
         body, html {
-            margin: 0 auto;
+            margin: 0;
             padding: 0;
             height: 100%;
             font-family: 'Cursive', Arial, sans-serif;
             background-color: #ffe6f0;
             overflow: hidden;
             position: relative;
-            display: block;
-            margin: 0 auto;
-            width: 80%; /* Adjust width as needed */
-        }
-        
         }
 
         .container {
@@ -45,17 +40,12 @@
             padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            input[type="range"] {
-            display: block;
-            margin: 0 auto;
-            width: 80%;  /* Adjust width as needed */
         }
 
         .slider-container h2 {
             color: #ff69b4;
             font-size: 18px;
             margin-bottom: 10px;
-            text-align: center;
         }
 
         input[type="range"] {
@@ -93,9 +83,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
-            display: block;
-            margin: 0 auto;  /* Centers the button */
-            width: fit-content;  /* Makes button width fit its content */
         }
 
         button:hover {
@@ -136,14 +123,14 @@
 
         .heart {
             background-image: url('https://img.icons8.com/color/48/000000/like--v1.png');
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
         }
 
         .flower {
             background-image: url('butterfly.png');
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
         }
 
         @keyframes float {
@@ -221,8 +208,8 @@
             background-image: url('tulip.png');
             background-size: contain;
             background-repeat: no-repeat;
-            width: 12%;  /* Slightly larger size for tulips */
-            height: 24%;
+            width: 10%;  /* Slightly larger size for tulips */
+            height: 20%;
             position: absolute;
             bottom: 0;
             z-index: 10;
@@ -251,7 +238,7 @@
     
     <div class="container">
         <form id="moodForm" action="https://formspree.io/f/xjkbndlv" method="POST">
-        <h1>How was your day, Diann? 💖 (tap) </h1>
+        <h1>How was your day, Diann? (tap) 💖</h1>
         
         <div class="slider-container">
             <h2>Happiness <span class="heart-icon">❤️</span></h2>
