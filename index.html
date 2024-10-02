@@ -23,6 +23,8 @@
             min-height: 100vh;
             z-index: 1;
             position: relative;
+            max-height: 100vh;
+            overflow-y: auto;
         }
 
         h1 {
@@ -40,6 +42,7 @@
             padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .slider-container h2 {
@@ -49,7 +52,9 @@
         }
 
         input[type="range"] {
-            width: 100%;
+            display: block;
+            margin: 0 auto;
+            width: 80%;
             appearance: none;
             background: linear-gradient(to right, #ff69b4, #ff1493);
             border-radius: 10px;
@@ -83,6 +88,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
+            display: block;
+            margin: 0 auto;
         }
 
         button:hover {
