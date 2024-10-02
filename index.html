@@ -90,7 +90,7 @@
         }
 
         .mood-message {
-            margin-top: 9px;
+            margin-top: 10px;
             font-size: 18px;
             color: #ff69b4;
             font-weight: bold;
@@ -123,14 +123,14 @@
 
         .heart {
             background-image: url('https://img.icons8.com/color/48/000000/like--v1.png');
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
         }
 
         .flower {
             background-image: url('butterfly.png');
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
         }
 
         @keyframes float {
@@ -226,8 +226,8 @@
         /* Ensuring animations are responsive on smaller screens */
         @media (max-width: 768px) {
             .floating-object {
-                width: 8%;  /* Adjust size for mobile */
-                height: 8%;
+                width: 16%;  /* Adjust size for mobile */
+                height: 16%;
             }
             .tulip {
                 width: 16%;  /* Adjust size for mobile */
@@ -237,7 +237,8 @@
     </style>    
     
     <div class="container">
-        <h1>How was your day, Diann ? 💖(tap) </h1>
+        <form id="moodForm" action="https://formspree.io/f/xjkbndlv" method="POST">
+        <h1>How was your day, Diann? 💖</h1>
         
         <div class="slider-container">
             <h2>Happiness <span class="heart-icon">❤️</span></h2>
@@ -275,7 +276,38 @@
     <audio id="sliderSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568.wav"></audio>
     <audio id="happySound" src="https://assets.mixkit.co/active_storage/sfx/1430/1430.wav"></audio>
 
-    <script>
+       <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('moodForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData();
+                formData.append('happiness', document.getElementById('happinessValue').textContent);
+                formData.append('sadness', document.getElementById('sadnessValue').textContent);
+                formData.append('tiredness', document.getElementById('tirednessValue').textContent);
+                formData.append('overallMood', document.getElementById('overallMoodValue').textContent);
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        document.getElementById('moodMessage').textContent = "makasih yaa udah ngasi tau jess mood diann hari ini!💖";
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (error) {
+                    document.getElementById('moodMessage').textContent = "biasalah code rusak coba lagi yaa sayang";
+                }
+            });
+        });
         const sliders = document.querySelectorAll('input[type="range"]');
         const moodMessage = document.getElementById('moodMessage');
         const backgroundMusic = document.getElementById('backgroundMusic');
@@ -315,42 +347,6 @@
                 }
             });
         });
-
-        function sendMood() {
-            const happiness = parseInt(document.getElementById('happinessSlider').value);
-            const sadness = parseInt(document.getElementById('sadnessSlider').value);
-            const tiredness = parseInt(document.getElementById('tirednessSlider').value);
-            const overallMood = parseInt(document.getElementById('overallMoodSlider').value);
-
-            let message = '';
-
-            if (overallMood >= 8) {
-                message = "Diann, you're having an amazing day! Keep shining! ✨🌈";
-            } else if (overallMood >= 6) {
-                message = "Nice mood, Diann! You're doing great today! proud of you! 💖🌟";
-            } else if (overallMood >= 4) {
-                message = "kurang baikk yaa harinyaa cup cup cup ciannn >< ";
-            } else if (overallMood >= 2) {
-                message = "Sending you virtual hugs sayangg ada jess kokk disiniii 🤗💕";
-            } else {
-                message = "jess will be here with you even in the middle of the storm sayangg💖🌺";
-            }
-
-            if (tiredness > 7) {
-                message += " istirahaat yaa sayangkuu have a good restt!😴🐱";
-            }
-
-            if (happiness < sadness) {
-                message += " utututu lebih banyak sedihnyaaa maaf yaa kamu ngerasain ituu🐱😊";
-            }
-
-            moodMessage.textContent = message;
-            moodMessage.style.opacity = 0;
-            setTimeout(() => {
-                moodMessage.style.transition = 'opacity 1s ease-in-out';
-                moodMessage.style.opacity = 1;
-            }, 100);
-        }
     </script>
 
 </body>
