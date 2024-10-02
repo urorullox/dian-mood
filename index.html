@@ -90,12 +90,12 @@
         }
 
         .mood-message {
-            margin-top: 20px;
+            margin-top: 9px;
             font-size: 18px;
             color: #ff69b4;
             font-weight: bold;
             text-align: center;
-            min-height: 50px;
+            min-height: 100px;
         }
 
         .heart-icon {
@@ -123,14 +123,14 @@
 
         .heart {
             background-image: url('https://img.icons8.com/color/48/000000/like--v1.png');
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
         }
 
         .flower {
             background-image: url('butterfly.png');
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
         }
 
         @keyframes float {
@@ -208,8 +208,8 @@
             background-image: url('tulip.png');
             background-size: contain;
             background-repeat: no-repeat;
-            width: 6%;  /* Slightly larger size for tulips */
-            height: 12%;
+            width: 12%;  /* Slightly larger size for tulips */
+            height: 24%;
             position: absolute;
             bottom: 0;
             z-index: 10;
@@ -230,14 +230,14 @@
                 height: 8%;
             }
             .tulip {
-                width: 8%;  /* Adjust size for mobile */
-                height: 14%;
+                width: 16%;  /* Adjust size for mobile */
+                height: 28%;
             }
         }
     </style>    
     
     <div class="container">
-        <h1>How was your day, Diann? 💖</h1>
+        <h1>How was your day, Diann ? 💖(tap) </h1>
         
         <div class="slider-container">
             <h2>Happiness <span class="heart-icon">❤️</span></h2>
@@ -270,7 +270,7 @@
 
     <!-- Add interactive sound elements -->
     <audio id="backgroundMusic" loop>
-        <source src="love..mp3" type="audio/mpeg">
+        <source src="love.mp3" type="audio/mpeg">
     </audio>
     <audio id="sliderSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568.wav"></audio>
     <audio id="happySound" src="https://assets.mixkit.co/active_storage/sfx/1430/1430.wav"></audio>
@@ -327,21 +327,21 @@
             if (overallMood >= 8) {
                 message = "Diann, you're having an amazing day! Keep shining! ✨🌈";
             } else if (overallMood >= 6) {
-                message = "Nice mood, Diann! You're doing great today! 💖🌟";
+                message = "Nice mood, Diann! You're doing great today! proud of you! 💖🌟";
             } else if (overallMood >= 4) {
-                message = "Your mood is balanced, Diann. Take a moment to appreciate the little things! 🌸🍃";
+                message = "kurang baikk yaa harinyaa cup cup cup ciannn >< ";
             } else if (overallMood >= 2) {
-                message = "Sending you virtual hugs, Diann. Things will get better! 🤗💕";
+                message = "Sending you virtual hugs sayangg ada jess kokk disiniii 🤗💕";
             } else {
-                message = "Remember, Diann, you're loved and valued! Reach out if you need support. 💖🌺";
+                message = "jess will be here with you even in the middle of the storm sayangg💖🌺";
             }
 
             if (tiredness > 7) {
-                message += " Don't forget to rest and recharge, Diann! 😴🐱";
+                message += " istirahaat yaa sayangkuu have a good restt!😴🐱";
             }
 
             if (happiness < sadness) {
-                message += " Let's focus on the little joys in life, Diann! 🐱😊";
+                message += " utututu lebih banyak sedihnyaaa maaf yaa kamu ngerasain ituu🐱😊";
             }
 
             moodMessage.textContent = message;
