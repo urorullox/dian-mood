@@ -6,13 +6,18 @@
     <title>Diann's Mood Tracker</title>
     <style>
         body, html {
-            margin: 0;
+            margin: 0 auto;
             padding: 0;
             height: 100%;
             font-family: 'Cursive', Arial, sans-serif;
             background-color: #ffe6f0;
             overflow: hidden;
             position: relative;
+            display: block;
+            margin: 0 auto;
+            width: 80%; /* Adjust width as needed */
+        }
+        
         }
 
         .container {
@@ -40,12 +45,17 @@
             padding: 15px;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            input[type="range"] {
+            display: block;
+            margin: 0 auto;
+            width: 80%;  /* Adjust width as needed */
         }
 
         .slider-container h2 {
             color: #ff69b4;
             font-size: 18px;
             margin-bottom: 10px;
+            text-align: center;
         }
 
         input[type="range"] {
@@ -83,6 +93,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
+            display: block;
+            margin: 0 auto;  /* Centers the button */
+            width: fit-content;  /* Makes button width fit its content */
         }
 
         button:hover {
